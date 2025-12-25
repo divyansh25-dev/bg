@@ -12,7 +12,7 @@ API_URL = "https://api-inference.huggingface.co/models/briaai/RMBG-1.4"
 
 # Get Secrets from Render
 RAPIDAPI_SECRET = os.getenv("RAPIDAPI_SECRET", "DefaultSecretForTesting") 
-HF_TOKEN = os.getenv("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") # <--- We will add this in Render next
+HF_TOKEN = os.getenv("HF_TOKEN") # <--- We will add this in Render next
 
 @app.get("/")
 def home():
@@ -49,4 +49,5 @@ async def remove_background(
 
     except Exception as e:
         return {"error": str(e)}
+
 
