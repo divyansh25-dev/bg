@@ -1,10 +1,9 @@
-# Use a lightweight version of Python
-FROM python:3.9-slim
+# We upgrade to Python 3.10-slim which has better repository support
+FROM python:3.10-slim
 
-# Install system dependencies required for image processing
-# (These are linux libraries needed for the AI to "see" images)
+# Fix: We replaced 'libgl1-mesa-glx' with 'libgl1' which is the modern standard
 RUN apt-get update && apt-get install -y \
-    libgl1-mesa-glx \
+    libgl1 \
     libglib2.0-0 \
     wget \
     && rm -rf /var/lib/apt/lists/*
@@ -16,8 +15,7 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Create a clear folder for the AI models so they don't get lost
-# This helps the app find the downloaded BiRefNet model
+# Create the folder for AI models
 RUN mkdir -p /root/.u2net
 
 # Copy the rest of the code
