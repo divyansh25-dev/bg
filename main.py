@@ -8,7 +8,7 @@ app = FastAPI()
 # --- CONFIGURATION ---
 # We use the free Hugging Face API URL for the BriaAI model (State of the Art)
 # This runs on THEIR powerful GPUs, not your weak server.
-API_URL = "https://api-inference.huggingface.co/models/briaai/RMBG-1.4"
+API_URL = "https://router.huggingface.co/hf-inference/models/briaai/RMBG-1.4"
 
 # Get Secrets from Render
 RAPIDAPI_SECRET = os.getenv("RAPIDAPI_SECRET", "DefaultSecretForTesting") 
@@ -49,5 +49,4 @@ async def remove_background(
 
     except Exception as e:
         return {"error": str(e)}
-
 
