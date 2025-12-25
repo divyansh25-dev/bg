@@ -1,6 +1,6 @@
 FROM python:3.10-slim
 
-# Install dependencies
+# Install system libraries
 RUN apt-get update && apt-get install -y \
     libgl1 \
     libglib2.0-0 \
@@ -16,7 +16,6 @@ RUN mkdir -p /root/.u2net
 
 COPY . .
 
-# THE FIX: 
-# We use "sh -c" so we can read the $PORT variable from Render.
-# If Render says "Use Port 10000", this code will obey.
-CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}"]
+# EXPLICIT BINDING
+# We hardcode port 10000 because Render's docs say that is the default.
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "10000"]
